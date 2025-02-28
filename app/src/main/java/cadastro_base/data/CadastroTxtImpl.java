@@ -10,22 +10,22 @@ import java.util.List;
 import cadastro_base.domain.Pessoa;
 
 public class CadastroTxtImpl implements CadastroInterface {
-    private Pessoa pessoa = new Pessoa();
+   
     private String nomeArquivo = "cadastro.txt";
    
-    public CadastroTxtImpl(Pessoa pessoa) {
-        this.pessoa = pessoa;
+    public CadastroTxtImpl() {
+       
     }
 
     @Override
-    public ArrayList<String> lerArquivo() {
-        ArrayList<String> linhas = new ArrayList<>();
+    public ArrayList<Pessoa> lerArquivo() {
+        ArrayList<Pessoa> linhas = new ArrayList<>();
         try {
             FileReader arquivo = new FileReader(nomeArquivo);
             BufferedReader entrada = new BufferedReader(arquivo);
             String linha;
             while((linha = entrada.readLine()) != null) {
-                linhas.add(linha);
+                linhas.add(new Pessoa(linha));
             }
             arquivo.close();
             entrada.close();
@@ -40,29 +40,31 @@ public class CadastroTxtImpl implements CadastroInterface {
     
    
     @Override
-    public void salvar() {
+    public void salvar(Pessoa pessoa) {
        
         try {
-            ArrayList<String> linhas = lerArquivo();
-
-            FileWriter arquivo = new FileWriter(nomeArquivo);
+            FileWriter arquivo = new FileWriter(nomeArquivo, true);
             BufferedWriter saida = new BufferedWriter(arquivo);
-           
-            linhas.add(pessoa.toString());
-          
-            for (String linha : linhas) {
-                saida.write(linha);
-               
-                saida.newLine();
-            }
-           
-          
+            saida.write(pessoa.toString());
+            saida.newLine();
             saida.close();
             System.out.println("Cadastro salvo com sucesso!");
         } catch (Exception e) {
             System.out.println("Erro ao salvar arquivo");
         }
 
+    }
+
+    @Override
+    public void editar(Pessoa pessoa) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'editar'");
+    }
+
+    @Override
+    public void excluir(Pessoa pessoa) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'excluir'");
     }
 
 
