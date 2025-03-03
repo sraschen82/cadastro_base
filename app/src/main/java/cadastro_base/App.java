@@ -1,16 +1,16 @@
 package cadastro_base;
 
+import java.io.IOException;
+
 import cadastro_base.ui.PaginaInicial;
 
 public class App {
-    // public String getGreeting() {
-    //     return "Projeto Cadastro";
-    // }
+ 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         PaginaInicial paginaInicial = new PaginaInicial();
-        paginaInicial.iniciarCadastro();
+        paginaInicial.mostrarMenu();
         
        
         

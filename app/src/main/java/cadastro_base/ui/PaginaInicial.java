@@ -1,37 +1,70 @@
 package cadastro_base.ui;
 
-import java.util.ArrayList;
 import java.util.Scanner;
-
-import cadastro_base.data.CadastroInterface;
-import cadastro_base.data.CadastroTxtImpl;
-import cadastro_base.domain.Pessoa;
+import cadastro_base.ui.menu.PaginaCadastrados;
+import cadastro_base.ui.menu.PaginaCadastrar;
+import cadastro_base.ui.menu.PaginaEditar;
+import cadastro_base.ui.menu.PaginaExcluir;
 
 public class PaginaInicial {
 
-    public void  iniciarCadastro() {
+    public void mostrarMenu() {
 
-       
-        ArrayList<Pessoa> pessoas = new CadastroTxtImpl().lerArquivo();
-        System.out.print("\nCadastros:\n"); 
-        int i = 1;
-        for (Pessoa pessoa : pessoas) {
-            System.out.println(i+". "+pessoa.toString());
-            i++;
-        }
-   
-        Pessoa novaPessoa = new Pessoa();
+        System.out.println("""
 
+                ----------------
+                    MENU
+                1. Listar Cadastrados
+                2. Cadastrar
+                3. Editar
+                4. Excluir
+                5. Sair
+                ----------------
+                """);
         Scanner scanner = new Scanner(System.in);
-        System.out.print("\nCadastre outra pessoa: "); 
-        String nome = scanner.nextLine();
-        novaPessoa.setNome(nome);
-        CadastroInterface cadastro = new CadastroTxtImpl();
-        cadastro.salvar(novaPessoa);
-        iniciarCadastro();
+        System.out.print("Digite o número da opção desejada: ");
+        try {
+            int opcao = scanner.nextInt();
+            scanner.nextLine();
 
-             
-       
-    } 
-    
-   }
+            switch (opcao) {
+                case 1:
+                    PaginaCadastrados.listar();
+                    break;
+                case 2:
+                    PaginaCadastrar.adicionarPessoa(scanner);
+                    PaginaCadastrados.listar();
+                    break;
+                case 3:
+                    PaginaCadastrados.listar();
+                    PaginaEditar.editarPessoa(scanner);
+                    PaginaCadastrados.listar();
+                    break;
+
+                case 4:
+                    PaginaCadastrados.listar();
+                    PaginaExcluir.excluirPessoa(scanner);
+                    PaginaCadastrados.listar();
+
+                    break;
+
+                case 5:
+                    System.out.println("Saindo...");
+                    System.exit(0);
+                    break;
+
+                default:
+                    System.out.println("\nOpção inválida, tente novamente");
+                    break;
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao ler a opção");
+        }
+
+        mostrarMenu();
+        scanner.close();
+
+    }
+
+}

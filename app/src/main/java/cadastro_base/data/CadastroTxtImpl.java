@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
-import java.util.List;
 
 import cadastro_base.domain.Pessoa;
 
@@ -13,9 +12,7 @@ public class CadastroTxtImpl implements CadastroInterface {
    
     private String nomeArquivo = "cadastro.txt";
    
-    public CadastroTxtImpl() {
-       
-    }
+   
 
     @Override
     public ArrayList<Pessoa> lerArquivo() {
@@ -29,7 +26,7 @@ public class CadastroTxtImpl implements CadastroInterface {
             }
             arquivo.close();
             entrada.close();
-            System.out.println("Arquivo lido com sucesso!");
+           
            
         } catch (Exception e) {
             System.out.println("Erro ao ler arquivo");
@@ -48,7 +45,7 @@ public class CadastroTxtImpl implements CadastroInterface {
             saida.write(pessoa.toString());
             saida.newLine();
             saida.close();
-            System.out.println("Cadastro salvo com sucesso!");
+            
         } catch (Exception e) {
             System.out.println("Erro ao salvar arquivo");
         }
@@ -56,17 +53,38 @@ public class CadastroTxtImpl implements CadastroInterface {
     }
 
     @Override
-    public void editar(Pessoa pessoa) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'editar'");
+    public void salvarLista(ArrayList<Pessoa> lista) {
+        try {
+            FileWriter arquivo = new FileWriter(nomeArquivo);
+            BufferedWriter saida = new BufferedWriter(arquivo);
+            for (Pessoa pessoa : lista) {
+                saida.write(pessoa.toString());
+                saida.newLine();
+            }
+            saida.close();
+           
+        } catch (Exception e) {
+            System.out.println("Erro ao salvar a lista.");
+        }
+       
+    }
+
+   
+    @Override
+    public void editar(int index,Pessoa pessoa) {
+        ArrayList<Pessoa> lista = lerArquivo();
+        lista.remove(index);
+        lista.add(index, pessoa);
+        salvarLista(lista);
+            
+      
     }
 
     @Override
-    public void excluir(Pessoa pessoa) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'excluir'");
+    public void excluir(int indice) {
+        ArrayList<Pessoa> lista = lerArquivo();
+        lista.remove(indice);
+        salvarLista(lista);
     }
 
-
-    
 }
