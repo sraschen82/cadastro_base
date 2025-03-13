@@ -1,6 +1,7 @@
 package cadastro_base.ui;
 
 import java.util.Scanner;
+
 import cadastro_base.ui.menu.PaginaCadastrados;
 import cadastro_base.ui.menu.PaginaCadastrar;
 import cadastro_base.ui.menu.PaginaEditar;

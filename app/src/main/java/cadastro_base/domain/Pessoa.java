@@ -3,12 +3,16 @@ package cadastro_base.domain;
 public class Pessoa {
 
     private String nome;
+    private String cpf;
+    private String cep;
 
  public Pessoa() {
     }
     
-    public Pessoa(String nome) {
+    public Pessoa(String nome, String cpf, String cep) {
         this.nome = nome;
+        this.cpf = cpf;
+        this.cep = cep;
     }
 
 
@@ -19,16 +23,33 @@ public class Pessoa {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public String getCPF() {
+        return this.cpf;
+    }
+
+    public void setCPF(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getCEP() {
+        return this.cep;
+    }
+
+    public void setCEP(String cep) {
+        this.cep = cep;
+    }
     
 
     @Override
     public String toString() {
-        return getNome();
+        return  getNome() + "; " + getCPF() + "; " + getCEP();
     }
 
    
 
 }
+
 
 
 // package cadastro_base.domain;

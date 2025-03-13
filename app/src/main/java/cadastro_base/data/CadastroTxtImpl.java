@@ -12,27 +12,29 @@ public class CadastroTxtImpl implements CadastroInterface {
    
     private String nomeArquivo = "cadastro.txt";
    
-   
-
     @Override
     public ArrayList<Pessoa> lerArquivo() {
-        ArrayList<Pessoa> linhas = new ArrayList<>();
+        ArrayList<Pessoa> pessoas = new ArrayList<>();
         try {
             FileReader arquivo = new FileReader(nomeArquivo);
             BufferedReader entrada = new BufferedReader(arquivo);
             String linha;
             while((linha = entrada.readLine()) != null) {
-                linhas.add(new Pessoa(linha));
+                String[] div = linha.split("; ");
+                if (div.length == 3) { // Verifica se a linha tem 3 campos
+                    pessoas.add(new Pessoa(div[0], div[1], div[2])); 
+                } else {
+                    System.out.println("Linha mal formatada: " + linha); // Caso haja algo errado na linha
+                }
             }
             arquivo.close();
             entrada.close();
-           
-           
         } catch (Exception e) {
             System.out.println("Erro ao ler arquivo");
+            e.printStackTrace();
         }
        
-        return linhas;
+        return pessoas;
     }
     
    

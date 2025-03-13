@@ -15,9 +15,15 @@ public class PaginaEditar {
             scanner.nextLine();
             if (index > 0 && index <= cadastro.carregarLista().size()) {
                 System.out.println("\nNome atual: " + cadastro.carregarLista().get(index - 1).getNome());
+                
                 System.out.print("Novo nome: ");
                 String nomeEditado = scanner.nextLine();
-                cadastro.editar(index - 1, nomeEditado);
+                System.out.print("Novo CPF: ");
+                String cpfEditado = scanner.nextLine();
+                System.out.print("Novo CEP: ");
+                String cepEditado = scanner.nextLine();
+
+                cadastro.editar(index - 1, nomeEditado, cpfEditado, cepEditado);
             } else {
                 System.out.println("\nOpção inválida, tente novamente");
             }
@@ -28,3 +34,4 @@ public class PaginaEditar {
 
     }
 }
+

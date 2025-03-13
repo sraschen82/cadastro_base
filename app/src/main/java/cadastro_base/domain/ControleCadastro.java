@@ -1,6 +1,7 @@
 package cadastro_base.domain;
 
 import java.util.ArrayList;
+
 import cadastro_base.data.CadastroTxtImpl;
 
 public class ControleCadastro {
@@ -15,9 +16,11 @@ public class ControleCadastro {
         return this.db.lerArquivo();
     }
 
-    public void salvar(String nome) {
+    public void salvar(String nome, String cpf, String cep) {
         Pessoa pessoa = new Pessoa();
         pessoa.setNome(nome);
+        pessoa.setCPF(cpf);
+        pessoa.setCEP(cep);
         this.db.salvar(pessoa);
     }
 
@@ -30,8 +33,9 @@ public class ControleCadastro {
         this.db.excluir(index);
     }
 
-    public void editar(int index , String novoNome) {
-      this.db.editar(index, new Pessoa(novoNome));
-    }
+    public void editar(int index , String novoNome, String novoCPF, String novoCEP) {
+        this.db.editar(index, new Pessoa(novoNome, novoCPF, novoCEP));
+      }
+  
 
 }
